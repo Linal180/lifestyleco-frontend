@@ -1,9 +1,37 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Typography } from '@mui/material';
 // component
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useNavigation } from 'react-router-dom';
 import Input from '../common/Input';
+import { FormProvider, SubmitHandler, useForm, } from "react-hook-form";
+import { LoginInputs } from "../../interfaces";
+import { loginSchema } from "../../validations";
+import { InputController } from "../../controllers/InputController";
+import { EMAIL, PASSWORD } from "../../constants";
+import { checkCredentials } from "../../utils";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate()
+  const methods = useForm<LoginInputs>({
+    mode: "all",
+    resolver: yupResolver(loginSchema)
+  });
+
+  const { handleSubmit, setValue } = methods
+
+  const onSubmit: SubmitHandler<LoginInputs> = async (inputs) => {
+    const passed = checkCredentials(inputs);
+
+    if(passed){
+      toast.success('Logged in successfully!');
+      navigate('/');
+    } else {
+      toast.error('Email or password incorrect');
+      setValue('password', '')
+    }
+  }
+
   return (
     <Box
       display='flex' flexDirection='column' alignItems='center' justifyContent='center'
@@ -13,16 +41,28 @@ const Login = () => {
         Sign In
       </Typography>
 
-      <form>
-        <Input type="tel" id="phone" placeholder="Phone Number" />
-        <Input type="password" id="password" placeholder="Password" />
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <InputController
+            name='email'
+            isRequired
+            title={EMAIL}
+          />
+          {/* <Input type="tel" id="phone" placeholder="Phone Number" />
+        <Input type="password" id="password" placeholder="Password" /> */}
 
-        <Link to='/' style={{ color: 'white' }}>
+          <InputController
+            name='password'
+            isRequired
+            isPassword
+            title={PASSWORD}
+          />
+
           <Button type="submit" variant='contained' size='large' fullWidth sx={{ mt: 5, fontWeight: 'bold', fontSize: '1rem' }}>
             Sign In
           </Button>
-        </Link>
-      </form>
+        </form>
+      </FormProvider>
 
       <Box display='flex' justifyContent='flex-end' mt={2}>
         <Typography variant="body2" color="initial">

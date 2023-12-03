@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { theme } from './theme';
 import { Box, ThemeProvider } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -11,12 +11,25 @@ import MorningComponent from './components/dashboard/Morning';
 import AfternoonComponent from './components/dashboard/Afternoon';
 import RegisterComponent from './components/auth/Register';
 import LoginComponent from './components/auth/Login';
+import { getAdminAccount, setAdminAccount } from './utils';
+import { toastStyle } from './styles/toast';
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
+  const adminInfo = getAdminAccount();
+  
+  useEffect(() => {
+    if(!adminInfo){
+      setAdminAccount()
+    }
+  }, [adminInfo]);
+  
   return (
     <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Box sx={{ width: '100%', maxWidth: '992px', mx: 'auto' }}>
+      <Toaster toastOptions={toastStyle} />
+      
         <Router>
           <Header />
 
