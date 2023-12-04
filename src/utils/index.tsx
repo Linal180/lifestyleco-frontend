@@ -1,5 +1,13 @@
-import { ADMIN_ACCOUNT, ADMIN_KEY } from "../constants";
+import { ADMIN_ACCOUNT, ADMIN_KEY, TOKEN } from "../constants";
 import { AdminAccount, LoginInputs } from "../interfaces";
+
+export const getToken = () => {
+  return localStorage.getItem(TOKEN) || ''
+}
+
+export const setToken = () => {
+  localStorage.setItem(TOKEN, new Date().toISOString())
+}
 
 export const getAdminAccount = (): AdminAccount | null => {
   const admin = localStorage.getItem(ADMIN_KEY) ? JSON.parse(localStorage.getItem(ADMIN_KEY) as string) : null

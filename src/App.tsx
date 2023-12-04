@@ -11,43 +11,47 @@ import MorningComponent from './components/dashboard/Morning';
 import AfternoonComponent from './components/dashboard/Afternoon';
 import RegisterComponent from './components/auth/Register';
 import LoginComponent from './components/auth/Login';
-import { getAdminAccount, setAdminAccount } from './utils';
+import { getAdminAccount, getToken, setAdminAccount } from './utils';
 import { toastStyle } from './styles/toast';
 import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const adminInfo = getAdminAccount();
-  
+  const token = getToken();
+
   useEffect(() => {
-    if(!adminInfo){
+    if (!adminInfo) {
       setAdminAccount()
     }
   }, [adminInfo]);
-  
+
   return (
     <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Box sx={{ width: '100%', maxWidth: '992px', mx: 'auto' }}>
-      <Toaster toastOptions={toastStyle} />
-      
-        <Router>
-          <Header />
+      <ThemeProvider theme={theme}>
+        <Box sx={{ width: '100%', maxWidth: '992px', mx: 'auto' }}>
+          <Toaster toastOptions={toastStyle} />
 
-          <Box sx={{ position: 'absolute', backgroundColor: '#f1f4f8', width: '100%', maxWidth: '992px', height: 'calc(100vh - 120px)', top: '60px', overflowY: 'scroll', }}>
-            <Routes>
-              <Route index path='/register' element={<RegisterComponent />} />
-              <Route index path='/login' element={<LoginComponent />} />
-              <Route index path='/' element={<MorningComponent />} />
-              <Route path='/afternoon' element={<AfternoonComponent />} />
-              <Route path='/evening' element={<EveningComponent />} />
-              <Route path='*' element={<NoPage />} />
-            </Routes>
-          </Box>
+          <Router>
+            <Header />
 
-          <Footer />
-        </Router>
-      </Box>
-    </ThemeProvider>
-  </React.StrictMode>
+            <Box sx={{ position: 'absolute', backgroundColor: '#f1f4f8', width: '100%', maxWidth: '992px', height: 'calc(100vh - 120px)', top: '60px', overflowY: 'scroll', }}>
+              <Routes>
+                {token ? <>
+                  <Route path='/afternoon' element={<AfternoonComponent />} />
+                  <Route path='/evening' element={<EveningComponent />} />
+                  <Route index path='/' element={<MorningComponent />} />
+                </> : <>
+                  <Route index path='/register' element={<RegisterComponent />} />
+                  <Route index path='/' element={<LoginComponent />} />
+                </>}
+                <Route path='*' element={<NoPage />} />
+              </Routes>
+            </Box>
+
+            <Footer />
+          </Router>
+        </Box>
+      </ThemeProvider>
+    </React.StrictMode>
   );
 }

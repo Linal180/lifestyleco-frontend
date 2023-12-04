@@ -36,7 +36,6 @@
     "eject": "react-scripts eject",
     "build:prod": "NODE_OPTIONS='--max-old-space-size=9216' react-scripts build",
     "build:bash": "sh ./bash/index.sh"
-
   },
   "eslintConfig": {
     "extends": [

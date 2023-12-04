@@ -1,17 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Typography } from '@mui/material';
 // component
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormProvider, SubmitHandler, useForm, } from "react-hook-form";
 import { LoginInputs } from "../../interfaces";
 import { loginSchema } from "../../validations";
 import { InputController } from "../../controllers/InputController";
 import { EMAIL, PASSWORD } from "../../constants";
-import { checkCredentials } from "../../utils";
+import { checkCredentials, setToken } from "../../utils";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const navigate = useNavigate()
   const methods = useForm<LoginInputs>({
     mode: "all",
     resolver: yupResolver(loginSchema)
@@ -22,9 +21,13 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginInputs> = async (inputs) => {
     const passed = checkCredentials(inputs);
 
-    if(passed){
+    if (passed) {
       toast.success('Logged in successfully!');
-      navigate('/');
+      setToken();
+
+      setTimeout(() => {
+        window.location = '/' as unknown as Location
+      }, 1500)
     } else {
       toast.error('Email or password incorrect');
       setValue('password', '')
