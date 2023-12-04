@@ -10,7 +10,7 @@ import { MorningExerciseData } from '../../../data/Exercise';
 
 const MorningExercise = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState<number[]>([]);
 
   const handleChangeAccord = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
@@ -31,9 +31,9 @@ const MorningExercise = () => {
                 <Box width='100%' display='flex' flexDirection='row-reverse' justifyContent='space-between' alignItems='center' gap={2} flexWrap='wrap'>
                   <Typography variant="body1" sx={{ fontWeight: 'bold', mr: '10px' }}>{title}</Typography>
 
-                  {completed ? (
+                  {completed.includes(item.id) ? (
                     <Button variant="contained" color="success" size="medium" endIcon={<CheckCircleOutline />}> مکمل </Button>
-                  ) : (<></>)}
+                    ) : (<></>)}
                 </Box>
               </AccordionSummary>
 
@@ -57,9 +57,9 @@ const MorningExercise = () => {
                     <source src={video} type="video/mp4" />
                   </video>
 
-                  {completed ? (<></>) : (
+                  {completed.includes(item.id) ? (<></>) : (
                     <Box mt={2} mb={3} width="300px" mx="auto">
-                      <Button onClick={() => setCompleted(!completed)} variant="outlined" color="success"
+                      <Button onClick={() => setCompleted((prev) => [...prev, item.id])} variant="outlined" color="success"
                         size="large" fullWidth endIcon={<CheckCircleOutline />}> مکمل کر لی </Button>
                     </Box>
                   )}

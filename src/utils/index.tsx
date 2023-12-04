@@ -3,7 +3,7 @@ import { AdminAccount, LoginInputs } from "../interfaces";
 
 export const getAdminAccount = (): AdminAccount | null => {
   const admin = localStorage.getItem(ADMIN_KEY) ? JSON.parse(localStorage.getItem(ADMIN_KEY) as string) : null
-  // const admin = null  
+
   return admin ? admin as AdminAccount : null;
 }
 
