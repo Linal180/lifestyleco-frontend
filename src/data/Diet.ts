@@ -1,6 +1,5 @@
 // BREAKFAST
 import Lemonade from "../assets/images/lemon.png";
-import BreadEgg from "../assets/images/bread.png";
 import Oatmeal from "../assets/images/oatmeal.png";
 import Fruit from "../assets/images/fruit.png";
 import Juice from "../assets/images/juice.png";

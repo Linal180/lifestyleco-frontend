@@ -1,8 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Typography } from '@mui/material';
 // component
-import { Link, useNavigate, useNavigation } from 'react-router-dom';
-import Input from '../common/Input';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormProvider, SubmitHandler, useForm, } from "react-hook-form";
 import { LoginInputs } from "../../interfaces";
 import { loginSchema } from "../../validations";
