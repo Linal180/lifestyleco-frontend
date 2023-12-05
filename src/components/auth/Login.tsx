@@ -1,14 +1,15 @@
+import toast from "react-hot-toast";
+import { Link } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Typography } from '@mui/material';
-// component
-import { Link } from 'react-router-dom';
 import { FormProvider, SubmitHandler, useForm, } from "react-hook-form";
-import { LoginInputs } from "../../interfaces";
-import { loginSchema } from "../../validations";
+
 import { InputController } from "../../controllers/InputController";
-import { EMAIL, PASSWORD } from "../../constants";
-import { checkCredentials, setToken } from "../../utils";
-import toast from "react-hot-toast";
+
+import { apiPost } from "../../axois";
+import { loginSchema } from "../../validations";
+import { EMAIL, PASSWORD, TOKEN } from "../../constants";
+import { LoginInputs, LoginResponse } from "../../interfaces";
 
 const Login = () => {
   const methods = useForm<LoginInputs>({
@@ -18,19 +19,25 @@ const Login = () => {
 
   const { handleSubmit, setValue } = methods
 
-  const onSubmit: SubmitHandler<LoginInputs> = async (inputs) => {
-    const passed = checkCredentials(inputs);
+  const onSubmit: SubmitHandler<LoginInputs> = async ({ email, password }) => {
+    toast.loading('Logging you in...');
 
-    if (passed) {
-      toast.success('Logged in successfully!');
-      setToken();
+    try {
+      const { token } = await apiPost<LoginResponse>('/login', {
+        email, password
+      });
 
       setTimeout(() => {
-        window.location = '/' as unknown as Location
+        if (token) {
+          toast.success('Logged in successfully!');
+          localStorage.setItem(TOKEN, token)
+          window.location = '/' as unknown as Location
+        }
       }, 1500)
-    } else {
-      toast.error('Email or password incorrect');
+    } catch (error) {
+      toast.dismiss();
       setValue('password', '')
+      toast.error('Email or password incorrect');
     }
   }
 
@@ -50,8 +57,6 @@ const Login = () => {
             isRequired
             title={EMAIL}
           />
-          {/* <Input type="tel" id="phone" placeholder="Phone Number" />
-        <Input type="password" id="password" placeholder="Password" /> */}
 
           <InputController
             name='password'

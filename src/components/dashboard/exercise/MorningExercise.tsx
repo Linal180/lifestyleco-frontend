@@ -1,18 +1,38 @@
-import { useState } from 'react';
-
+import { useCallback, useEffect, useState } from 'react';
 import Accordion from '@mui/material/Accordion';
 import Typography from '@mui/material/Typography';
 import { Box, Button, Card, } from '@mui/material';
 import { CheckCircleOutline } from '@mui/icons-material';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import { MorningExerciseData } from '../../../data/Exercise';
+import { AxiosResponse } from 'axios';
+import { apiGet } from '../../../axois';
+import { Exercise } from '../../../interfaces';
+import toast from 'react-hot-toast';
+import { getVideoURL } from '../../../utils';
 
 const MorningExercise = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [completed, setCompleted] = useState<number[]>([]);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
 
-  const handleChangeAccord = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  const getMorningExercises = useCallback(async () => {
+    try {
+      const { data } = await apiGet<AxiosResponse>('/exercise/morning');
+
+      if (data) {
+        setExercises(data);
+      }
+    } catch (error) { 
+      toast.error("Failed to load exercises");
+    }
+  }, [])
+
+  useEffect(() => {
+    getMorningExercises()
+  }, [getMorningExercises]);
+
+  const handleChangeAccord = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -22,7 +42,7 @@ const MorningExercise = () => {
         <Typography variant="h6" fontWeight={600} textAlign="right" color="initial">:  ورزش </Typography>
         <Box p={1} />
 
-        {MorningExerciseData.map((item, index) => {
+        {exercises.map((item, index) => {
           const { title, description, require, perform, video } = item;
 
           return (
@@ -54,7 +74,7 @@ const MorningExercise = () => {
 
                 <Box mx='auto' textAlign='center'>
                   <video width="100%" height="100%" style={{ aspectRatio: '4:3' }} controls autoPlay muted>
-                    <source src={video} type="video/mp4" />
+                  <source src={getVideoURL(video)} type="video/mp4" />
                   </video>
 
                   {completed.includes(item.id) ? (<></>) : (

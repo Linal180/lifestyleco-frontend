@@ -1,9 +1,28 @@
-// MORNING
+
+export const VIDEOS_LIBRARY = {
+  HamstringStretch: process.env.PUBLIC_URL + '/videos/mor-eve-hamstring-stretch.mp4',
+  CalfStretch: process.env.PUBLIC_URL + "/videos/mor-eve-calf-stretch.mp4",
+  QuadsStretch: process.env.PUBLIC_URL + "/videos/morning-quads-stretch.mp4",
+  StepUpForward: process.env.PUBLIC_URL + "/videos/afternoon-step-up-forward.mp4",
+  CalfRaisesLeg: process.env.PUBLIC_URL + "/videos/afternoon-calf-raises-single-leg.mp4",
+  SideStepUp: process.env.PUBLIC_URL + "/videos/afternoon-side-step-up.mp4",
+  Lunges: process.env.PUBLIC_URL + "/videos/afternoon-lunges-alternating-legs.mp4",
+  WallSit: process.env.PUBLIC_URL + "/videos/afternoon-wall-sit.mp4",
+  StandingHamstring: process.env.PUBLIC_URL + "/videos/afternoon-standing-hamstring-curls.mp4",
+  KickBacks: process.env.PUBLIC_URL + "/videos/afternoon-kickbacks.mp4",
+  SitStand: process.env.PUBLIC_URL + "/videos/afternoon-sit-to-stand.mp4",
+  SLR: process.env.PUBLIC_URL + "/videos/afternoon-slr-to-16-inches.mp4",
+  FrontLying: process.env.PUBLIC_URL + "/videos/evening-front-lying-knee.mp4",
+  SquatSingleLeg: process.env.PUBLIC_URL + "/videos/evening-squat-single-leg.mp4",
+  SingleLegBridges: process.env.PUBLIC_URL + "/videos/evening-single-leg-bridges.mp4",
+  BalanceCrossWalking: process.env.PUBLIC_URL + "/videos/evening-balance-cross-walking.mp4",
+  BalanceShuttleWalking: process.env.PUBLIC_URL + "/videos/evening-balance-shuttle-walking.mp4",
+  BalanceChangingDirection: process.env.PUBLIC_URL + "/videos/evening-balance-changing-direction.mp4",
+}
+
 const HamstringStretch = process.env.PUBLIC_URL + '/videos/mor-eve-hamstring-stretch.mp4';
 const CalfStretch = process.env.PUBLIC_URL + "/videos/mor-eve-calf-stretch.mp4";
 const QuadsStretch = process.env.PUBLIC_URL + "/videos/morning-quads-stretch.mp4";
-
-// AFTERNOON
 const StepUpForward = process.env.PUBLIC_URL + "/videos/afternoon-step-up-forward.mp4";
 const CalfRaisesLeg = process.env.PUBLIC_URL + "/videos/afternoon-calf-raises-single-leg.mp4";
 const SideStepUp = process.env.PUBLIC_URL + "/videos/afternoon-side-step-up.mp4";
@@ -13,8 +32,6 @@ const StandingHamstring = process.env.PUBLIC_URL + "/videos/afternoon-standing-h
 const KickBacks = process.env.PUBLIC_URL + "/videos/afternoon-kickbacks.mp4";
 const SitStand = process.env.PUBLIC_URL + "/videos/afternoon-sit-to-stand.mp4";
 const SLR = process.env.PUBLIC_URL + "/videos/afternoon-slr-to-16-inches.mp4";
-
-//EVENING
 const FrontLying = process.env.PUBLIC_URL + "/videos/evening-front-lying-knee.mp4";
 const SquatSingleLeg = process.env.PUBLIC_URL + "/videos/evening-squat-single-leg.mp4";
 const SingleLegBridges = process.env.PUBLIC_URL + "/videos/evening-single-leg-bridges.mp4";
@@ -42,7 +59,7 @@ export const MorningExerciseData = [
   {
     id: 3,
     title: " ران کے اگلے حصے کے پٹھوں کو کھینچنا ",
-    description: " دیوار کے ساتھ پیٹھ لگا کر کھڑے ہوتے ہوئے اپنی آپریشن والی ٹانگ کے پاؤں یا ٹخنے کو پکڑیں اور آہستگی سے پیچھے کی طرف کھینچیں۔ سہارے کے لیے دوسرے ہاتھ سے کرسی کو پکڑ لیں۔ آپ کو اپنی ران کے اگلے حصے میں کھنچاؤ محسوس ہونا چاہئے۔ آپ یہ کھنچاؤ پیٹ کے بَل لیٹ کر اور گھٹنے پیچھے موڑ کر اپنے ہاتھ یا تولیے سے پکڑ کر اس حالت میں بھی کر سکتے ہیں۔ اپنی ران کے اگلے حصے میں درمیانے درجے کا کھنچاؤ محسوس کریں۔ ", 
+    description: " دیوار کے ساتھ پیٹھ لگا کر کھڑے ہوتے ہوئے اپنی آپریشن والی ٹانگ کے پاؤں یا ٹخنے کو پکڑیں اور آہستگی سے پیچھے کی طرف کھینچیں۔ سہارے کے لیے دوسرے ہاتھ سے کرسی کو پکڑ لیں۔ آپ کو اپنی ران کے اگلے حصے میں کھنچاؤ محسوس ہونا چاہئے۔ آپ یہ کھنچاؤ پیٹ کے بَل لیٹ کر اور گھٹنے پیچھے موڑ کر اپنے ہاتھ یا تولیے سے پکڑ کر اس حالت میں بھی کر سکتے ہیں۔ اپنی ران کے اگلے حصے میں درمیانے درجے کا کھنچاؤ محسوس کریں۔ ",
     require: " تولیہ، دروازے کا فریم ",
     perform: " دو منٹ ",
     video: QuadsStretch,
@@ -69,7 +86,7 @@ export const AfternoonExerciseData = [
   {
     id: 3,
     title: " ایک سائیڈ کو دو انچ قدم اٹھانا ",
-    description: " اپنی آپریشن والی ٹانگ کو سیڑھی پر اور اپنی دوسری ٹانگ کو ایک طرف زمین پر رکھتے ہوئے، اپنا سارا وزن آپریشن والی ٹانگ پر منتقل کریں اور آہستہ آہستہ اپنی دوسری ٹانگ کو فرش سے اٹھائیں، سیڑھی کو چھوئیں اور آہستہ آہستہ ابتدائی حالت پر نیچے لے جائیں۔ ", 
+    description: " اپنی آپریشن والی ٹانگ کو سیڑھی پر اور اپنی دوسری ٹانگ کو ایک طرف زمین پر رکھتے ہوئے، اپنا سارا وزن آپریشن والی ٹانگ پر منتقل کریں اور آہستہ آہستہ اپنی دوسری ٹانگ کو فرش سے اٹھائیں، سیڑھی کو چھوئیں اور آہستہ آہستہ ابتدائی حالت پر نیچے لے جائیں۔ ",
     require: " دو انچ کی ایک-دو کتابیں ",
     perform: " 2/10 ",
     video: SideStepUp,

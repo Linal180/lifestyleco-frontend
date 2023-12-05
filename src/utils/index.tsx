@@ -1,5 +1,5 @@
-import { ADMIN_ACCOUNT, ADMIN_KEY, TOKEN } from "../constants";
-import { AdminAccount, LoginInputs } from "../interfaces";
+import { TOKEN } from "../constants";
+import { VIDEOS_LIBRARY } from "../data/Exercise";
 
 export const getToken = () => {
   return localStorage.getItem(TOKEN) || ''
@@ -9,20 +9,25 @@ export const setToken = () => {
   localStorage.setItem(TOKEN, new Date().toISOString())
 }
 
-export const getAdminAccount = (): AdminAccount | null => {
-  const admin = localStorage.getItem(ADMIN_KEY) ? JSON.parse(localStorage.getItem(ADMIN_KEY) as string) : null
-
-  return admin ? admin as AdminAccount : null;
-}
-
-export const setAdminAccount = () => {
-  localStorage.setItem(ADMIN_KEY, JSON.stringify(ADMIN_ACCOUNT))
-};
-
 export const requiredMessage = (fieldName: string) => `${(fieldName)} is required`;
 
-export const checkCredentials = ({ email, password }: LoginInputs): Boolean => {
-  const admin = getAdminAccount();
+export const getApiCallHeaders = () => {
+  const token = getToken() || '';
 
-  return admin ? admin?.email === email && admin?.password === password : false;
+  return {
+    Authorization: `Bearer ${token}`,
+    "Cache-Control": "no-cache",
+    Pragma: "no-cache",
+    Expires: "0"
+  }
+}
+
+export const getVideoURL = (key: string): string => {
+  if (VIDEOS_LIBRARY.hasOwnProperty(key)) {
+    const videoUrl = (VIDEOS_LIBRARY as any)[key];
+  
+    return videoUrl;
+  }
+
+  return "";
 }
