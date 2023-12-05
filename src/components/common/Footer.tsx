@@ -17,7 +17,7 @@ const Footer = () => {
         <Button onClick={() => navigate("/evening")}>
           <Typography variant="h6" color="black" textAlign="center"
             className={`${pathMatchRoute("/evening") && "active-menu"}`}>
-            شام
+            شام 
           </Typography>
         </Button>
         <Button onClick={() => navigate("/afternoon")}>

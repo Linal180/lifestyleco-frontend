@@ -10,14 +10,13 @@ export interface InputProps {
   errorMessage?: string;
 }
 
-export type AdminAccount = {
+export type LoginInputs =  {
   email: string;
   password: string;
 }
 
-export type LoginInputs =  {
-  email: string;
-  password: string;
+export type RegisterInputs = LoginInputs & {
+  name: string;
 }
 
 type HtmlFieldType = HTMLInputTypeAttribute;
@@ -42,3 +41,16 @@ export type InputControllerProps = {
   inputProps?: string;
   size?: InputBaseProps['size'];
 };
+
+export type LoginResponse = {
+  token: string;
+}
+
+export type Exercise = {
+  id: number
+  title: string
+  description: string
+  require: string
+  perform: string
+  video: string
+}

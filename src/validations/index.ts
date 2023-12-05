@@ -9,3 +9,9 @@ export const loginSchema = yup.object({
   email: emailSchema(),
   ...passwordSchema
 })
+
+export const registerSchema = yup.object({
+  email: emailSchema(),
+  ...passwordSchema,
+  name: yup.string().required(requiredMessage('Name')).min(10), 
+})
