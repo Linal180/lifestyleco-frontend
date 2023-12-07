@@ -54,3 +54,15 @@ export type Exercise = {
   perform: string
   video: string
 }
+
+export type UserStatus = {
+  id: number
+  name: string
+  email: string
+  exercise_completion_percentage: number
+}
+
+export type ExerciseProps = {
+  exercise: Exercise
+  completed: number[];
+}

@@ -43,7 +43,10 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
 
       if (data) {
         const { user } = data || {}
+        const { user_type } = user || {}
+
         setUser(user);
+        setRole(user_type === 1 ? 'admin' : 'user')
       }
     } catch (error) { }
   }, [])
