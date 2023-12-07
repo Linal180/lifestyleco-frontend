@@ -42,7 +42,7 @@ const RouteComponent = () => {
         </Routes>
       </Box>
 
-      <Footer />
+      {token && <Footer />}
     </Router>
   )
 }
