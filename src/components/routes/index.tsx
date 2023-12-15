@@ -42,7 +42,7 @@ const RouteComponent = () => {
         </Routes>
       </Box>
 
-      {token && <Footer />}
+      {(token || role === 'user')  &&  <Footer />}
     </Router>
   )
 }

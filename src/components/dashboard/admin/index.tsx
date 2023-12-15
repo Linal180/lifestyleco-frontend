@@ -1,19 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { AxiosResponse } from "axios";
 
-import { apiPost } from "../../../axois";
+import { apiGet } from "../../../axois";
 import { UserStatus } from "../../../interfaces";
+import { Box, Container, Divider, Typography } from "@mui/material";
+import UserDetail from "../../common/UserDetail";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState<UserStatus[]>([])
 
   const getUserStates = useCallback(async () => {
     try {
-      const { status, data } = await apiPost<AxiosResponse>('/exercise/users/status');
+      const { statusCode, data } = await apiGet<any>('/exercise/users/all/status');
 
-      if (status === 200) {
-        setStats(data);
+      if (statusCode === 200) {
+        const { users } = data || {};
+
+        setStats(users);
       }
     } catch (error) {
       toast.error("Failed to load exercises");
@@ -24,12 +27,16 @@ const AdminDashboard = () => {
     getUserStates()
   }, [getUserStates]);
 
-  console.log(stats);
-
   return (
-    <>
-      <h1>Admin Dashboard</h1>
-    </>
+    <Container>
+      <Typography variant="h4">Admin Dashboard</Typography>
+
+      <Box my={5}>
+        <Divider />
+      </Box>
+
+      <UserDetail users={stats} />
+    </Container>
   );
 }
 

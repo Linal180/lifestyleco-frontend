@@ -1,14 +1,16 @@
 import { createContext, FC, ReactNode, useEffect, useState } from "react";
 import { useCallback } from "react";
 import { getToken } from "../../utils";
-import { apiPost } from "../../axois";
+import { apiGet, apiPost } from "../../axois";
 import { AxiosResponse } from "axios";
 
 type AuthContextProps = {
   user: any;
   role: 'admin' | 'user' | '';
+  completedExercises: string[];
   setUser: (user: any) => void;
   setRole: (role: 'admin' | 'user' | '') => void;
+  getUserExercises: () => void;
 }
 
 type User = {
@@ -24,8 +26,10 @@ type User = {
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
   role: '',
+  completedExercises: [],
   setUser: (user: any) => { },
-  setRole: (role: 'admin' | 'user' | '') => { }
+  setRole: (role: 'admin' | 'user' | '') => { },
+  getUserExercises: () => { }
 });
 
 type ReactNodeProps = {
@@ -35,7 +39,20 @@ type ReactNodeProps = {
 export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<'admin' | 'user' | ''>('');
+  const [completedExercises, setCompletedExercises] = useState<string[]>([])
+
   const hasToken = getToken();
+
+  const getUserExercises = useCallback(async () => {
+    try {
+      const { data } = await apiGet<AxiosResponse>('/exercise/user/status');
+
+      if (data) {
+        const { completed_exercises_ids } = data;
+        setCompletedExercises(completed_exercises_ids)
+      }
+    } catch (error) { }
+  }, [])
 
   const getUser = useCallback(async () => {
     try {
@@ -46,10 +63,16 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
         const { user_type } = user || {}
 
         setUser(user);
-        setRole(user_type === 1 ? 'admin' : 'user')
+
+        if (user_type === 1) {
+          setRole('admin');
+        } else {
+          setRole('user')
+          await getUserExercises()
+        }
       }
     } catch (error) { }
-  }, [])
+  }, [getUserExercises])
 
   useEffect(() => {
     hasToken && getUser();
@@ -57,7 +80,12 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
 
   return (
     <AuthContext.Provider value={{
-      role, setRole, setUser, user
+      user,
+      role,
+      completedExercises,
+      setRole,
+      setUser,
+      getUserExercises,
     }}>
       {children}
     </AuthContext.Provider>
