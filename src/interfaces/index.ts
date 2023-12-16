@@ -42,13 +42,14 @@ export type InputControllerProps = {
   size?: InputBaseProps['size'];
 };
 
-export type LoginResponse = {
-  token: string;
-}
-
 export type ApiStatus = {
   statusCode: number
 }
+
+export type LoginResponse = ApiStatus & {
+  token: string;
+}
+
 export type Exercise = {
   id: string
   title: string

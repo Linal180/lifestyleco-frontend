@@ -22,12 +22,17 @@ const Register = () => {
     toast.loading('Logging you in...');
 
     try {
-      const { token } = await apiPost<LoginResponse>('/register', {
+      const { token, statusCode } = await apiPost<LoginResponse>('/register', {
         email, password, name
       });
 
       setTimeout(() => {
         toast.dismiss();
+
+        if(statusCode ===  401){
+          toast.error('Email already taken');
+          return;
+        }
         if (token) {
           toast.success('User is registered successfully!');
           localStorage.setItem(TOKEN, token)
