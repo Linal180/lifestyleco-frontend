@@ -12,7 +12,6 @@ import { Exercise } from '../../../interfaces';
 
 const MorningExercise = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [completed, setCompleted] = useState<number[]>([]);
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   const getMorningExercises = useCallback(async () => {
@@ -21,7 +20,6 @@ const MorningExercise = () => {
 
       if (data) {
         setExercises(data);
-        setCompleted([])
       }
 
       setLoading(false)
@@ -46,7 +44,6 @@ const MorningExercise = () => {
             <ExerciseComponent
               key={index}
               exercise={exercise}
-              completed={completed}
             />
           )}
       </Box>

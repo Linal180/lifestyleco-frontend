@@ -46,8 +46,11 @@ export type LoginResponse = {
   token: string;
 }
 
+export type ApiStatus = {
+  statusCode: number
+}
 export type Exercise = {
-  id: number
+  id: string
   title: string
   description: string
   require: string
@@ -56,13 +59,22 @@ export type Exercise = {
 }
 
 export type UserStatus = {
-  id: number
+  user_id: string
   name: string
   email: string
-  exercise_completion_percentage: number
+  overall_completion_percentage: number
+  completed_exercises: {
+    all: string[]
+    morning: string[]
+    evening: string[]
+    afternoon: string[]
+  }
 }
 
 export type ExerciseProps = {
   exercise: Exercise
-  completed: number[];
+}
+
+export type UserDetailProps = {
+  users: UserStatus[]
 }
