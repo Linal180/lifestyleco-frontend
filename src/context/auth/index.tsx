@@ -50,9 +50,8 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
 
       if (data) {
         const { users } = data;
-
         const currentUser: UserStatus = (users.filter((userStat: UserStatus) => userStat.user_id === user?.id) || [null])[0]
-        console.log(currentUser, "::::::::")
+        
         if(currentUser){
           setCompletedExercises(currentUser.completed_exercises.all)
         }
