@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { getToken } from "../../utils";
 import { apiGet, apiPost } from "../../axois";
 import { AxiosResponse } from "axios";
+import { UserStatus } from "../../interfaces";
 
 type AuthContextProps = {
   user: any;
@@ -14,7 +15,7 @@ type AuthContextProps = {
 }
 
 type User = {
-  id: number
+  id: string
   name: string
   email: string
   email_verified_at: string | null
@@ -45,14 +46,19 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
 
   const getUserExercises = useCallback(async () => {
     try {
-      const { data } = await apiGet<AxiosResponse>('/exercise/user/status');
+      const { data } = await apiGet<AxiosResponse>('/exercise/users/all/status');
 
       if (data) {
-        const { completed_exercises_ids } = data;
-        setCompletedExercises(completed_exercises_ids)
+        const { users } = data;
+
+        const currentUser: UserStatus = (users.filter((userStat: UserStatus) => userStat.user_id === user?.id) || [null])[0]
+        console.log(currentUser, "::::::::")
+        if(currentUser){
+          setCompletedExercises(currentUser.completed_exercises.all)
+        }
       }
     } catch (error) { }
-  }, [])
+  }, [user?.id])
 
   const getUser = useCallback(async () => {
     try {

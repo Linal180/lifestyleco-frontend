@@ -59,10 +59,10 @@ export type Exercise = {
 }
 
 export type UserStatus = {
-  id: string
+  user_id: string
   name: string
   email: string
-  exercise_completion_percentage: number
+  overall_completion_percentage: number
   completed_exercises: {
     all: string[]
     morning: string[]

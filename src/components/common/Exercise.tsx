@@ -38,7 +38,7 @@ const ExerciseComponent: FC<ExerciseProps> = ({ exercise }) => {
         <Box width='100%' display='flex' flexDirection='row-reverse' justifyContent='space-between' alignItems='center' gap={2} flexWrap='wrap'>
           <Typography variant="body1" sx={{ fontWeight: 'bold', mr: '10px' }}>{title}</Typography>
 
-          {completedExercises.includes(id) ? (
+          {completedExercises.includes(id.toString()) ? (
             <Button variant="contained" color="success" size="medium" endIcon={<CheckCircleOutline />}> مکمل </Button>
           ) : (<></>)}
         </Box>
@@ -64,7 +64,7 @@ const ExerciseComponent: FC<ExerciseProps> = ({ exercise }) => {
             <source src={getVideoURL(video)} type="video/mp4" />
           </video>
 
-          {completedExercises.includes(id) ? (<></>) : (
+          {completedExercises.includes(id.toString()) ? (<></>) : (
             <Box mt={2} mb={3} width="300px" mx="auto">
               <Button onClick={() => handleComplete(id)} variant="outlined" color="success"
                 size="large" fullWidth endIcon={<CheckCircleOutline />}> مکمل کر لی </Button>
