@@ -29,11 +29,7 @@ const AdminDashboard = () => {
 
   return (
     <Container>
-      <Typography variant="h4">Admin Dashboard</Typography>
-
-      <Box my={5}>
-        <Divider />
-      </Box>
+      <Typography variant="h5" color="primary" fontWeight="600" textAlign="center" my={3}>Patients Detail</Typography>
 
       <UserDetail users={stats} />
     </Container>

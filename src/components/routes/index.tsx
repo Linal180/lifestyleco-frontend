@@ -25,7 +25,9 @@ const RouteComponent = () => {
       <Box sx={{ position: 'absolute', backgroundColor: '#f1f4f8', width: '100%', maxWidth: '992px', height: 'calc(100vh - 120px)', top: '60px', overflowY: 'scroll', }}>
         <Routes>
           {token ? <>
-            {role === 'admin'
+            {
+              // role === 'admin'
+              role === 'admin' || true
               ? <Route index path='/' element={<AdminDashboard />} />
               : <>
                 <Route path='/afternoon' element={<AfternoonComponent />} />

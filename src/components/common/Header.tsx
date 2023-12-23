@@ -1,6 +1,10 @@
 import { SetStateAction, useState } from 'react';
-import { AccountCircle, WhatsApp } from '@mui/icons-material';
-import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AccountCircle, LogoutOutlined, Token, WhatsApp } from '@mui/icons-material';
+import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
+import { TOKEN } from '../../constants';
+import { useNavigate, useNavigation } from 'react-router-dom';
+import { getToken } from '../../utils';
+import Logo from '../../assets/images/logo.png';
 
 const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -13,61 +17,37 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem(TOKEN);
+    // navigate("/login")
+    window.location = "/login" as unknown as Location
+  }
+
+  const token = getToken()
+
   return (
-    <Box sx={{ width: '100%', maxWidth: '992px', height: '60px', position: 'fixed', top: '0px', zIndex: 10, }}>
-      <AppBar position="static" sx={{ backgroundColor: '#46A53D' }}>
-        <Container>
-          <Toolbar disableGutters>
-            <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
-              <Typography
-                variant="h6"
-                fontWeight="bold"
-              >
-                LIFESTYLECO
-              </Typography>
+    <>
+      {token &&
+      <Box sx={{ width: '100%', maxWidth: '992px', height: '60px', position: 'fixed', top: '0px', zIndex: 10, }}>
+        <AppBar position="static" sx={{ backgroundColor: '#46A53D' }}>
+          <Container>
+            <Toolbar disableGutters>
+              <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
+                <img src={Logo} alt="logo" width="240px" height="auto" />
 
-              <Box display='flex' alignItems='center' gap='2'>
-                <a title='Click to Chat' href="https://api.whatsapp.com/send?phone=923334371715" target="_blank" rel="noreferrer">
-                  <IconButton sx={{ p: 0 }}>
-                    <WhatsApp fontSize='large' sx={{ color: 'white' }} />
-                  </IconButton>
-                </a>
-
-                <Box ml={2} display="none">
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={() => handleOpenUserMenu} style={{ padding: 0 }}>
-                      <AccountCircle sx={{ color: 'white' }} />
-                    </IconButton>
-                  </Tooltip>
-
-                  <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">Logout</Typography>
-                    </MenuItem>
-                  </Menu>
-                </Box>
+                <Button variant="contained" onClick={() => handleLogout()} color='secondary' startIcon={<LogoutOutlined />}>
+                  <p style={{ margin: '0px', fontWeight: 'bold' }}>Signout</p>
+                </Button>
               </Box>
-            </Box>
 
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </Box>
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </Box>
+      }
+    </>
   )
 }
 
