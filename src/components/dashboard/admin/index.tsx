@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 import { apiGet } from "../../../axois";
 import { UserStatus } from "../../../interfaces";
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import UserDetail from "../../common/UserDetail";
 
 const AdminDashboard = () => {

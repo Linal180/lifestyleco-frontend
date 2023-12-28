@@ -1,7 +1,6 @@
 import { FC } from 'react';
-import { PieChart } from '@mui/x-charts/PieChart';
 import { TOTAL_EXERCISES } from '../../constants';
-import { Box, LinearProgress, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export type ChartProps = {
   completed: number

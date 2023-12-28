@@ -26,8 +26,7 @@ const RouteComponent = () => {
         <Routes>
           {token ? <>
             {
-              // role === 'admin'
-              role === 'admin' || true
+              role === 'admin'
               ? <Route index path='/' element={<AdminDashboard />} />
               : <>
                 <Route path='/afternoon' element={<AfternoonComponent />} />

@@ -69,7 +69,7 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
 
         setUser(user);
 
-        if (user_type === 1) {
+        if (user_type === "1") {
           setRole('admin');
         } else {
           setRole('user')

@@ -1,4 +1,4 @@
-import { Box, Button, Card, FormControl, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Button, Card, FormControl, MenuItem, Select } from '@mui/material';
 import { SetStateAction, useState } from 'react';
 
 const DaySelector = () => {
@@ -33,7 +33,7 @@ const DaySelector = () => {
           </FormControl>
         </Box>
 
-        <a target="_blank" href="https://api.whatsapp.com/send?phone=923334371715" style={{ textDecoration: 'none', marginLeft: '10px' }}>
+        <a target="_blank" rel="noreferrer" href="https://api.whatsapp.com/send?phone=923334371715" style={{ textDecoration: 'none', marginLeft: '10px' }}>
           <Box 
             sx={{ backgroundColor: '#46A53D', color: '#fff', width: '200px', height: '40px', fontSize:'30px', borderRadius: '50px', textAlign: 'center', boxShadow: '2px 2px 3px #999', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
             <p style={{ marginRight: '10px', fontSize: '16px', fontWeight: '600' }}>رابطہ کریں</p>

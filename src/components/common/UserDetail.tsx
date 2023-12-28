@@ -1,11 +1,10 @@
-import { Box, Button, CardActions, CardContent, Chip, Collapse, Divider, Grid, LinearProgress, Paper, Typography } from "@mui/material";
+import { Box, Button, CardActions, CardContent, Collapse, Divider, Grid, Paper, Typography } from "@mui/material";
 import { FC, useCallback, useEffect, useState } from "react"
 import Chart from "./Chart";
 import { Exercise, UserDetailProps } from "../../interfaces";
 import { AxiosResponse } from "axios";
 import { apiGet } from "../../axois";
 import { CancelOutlined, CheckCircleOutline } from "@mui/icons-material";
-import { TOTAL_EXERCISES } from "../../constants";
 
 const UserDetail: FC<UserDetailProps> = ({ users }) => {
   const [selected, setSelected] = useState<string>('')
@@ -30,7 +29,7 @@ const UserDetail: FC<UserDetailProps> = ({ users }) => {
   return (
     <Grid container spacing={2}>
       {users.map((user) => {
-        const { user_id, email, name, overall_completion_percentage, completed_exercises } = user;
+        const { user_id, name, completed_exercises } = user;
         const { all } = completed_exercises;
           return <Grid item xs={12}>
             <Paper key={`states-${user_id}`} sx={{ px: '20px', pb: '10px' }}>
