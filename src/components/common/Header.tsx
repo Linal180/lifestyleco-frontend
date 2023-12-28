@@ -3,10 +3,13 @@ import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
 import { TOKEN } from '../../constants';
 import { getToken } from '../../utils';
 import Logo from '../../assets/images/logo.png';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/auth';
 
 const Header = () => {
-
+  const { setUser } = useContext(AuthContext)
   const handleLogout = () => {
+    setUser(null)
     localStorage.removeItem(TOKEN);
 
     window.location = "/login" as unknown as Location

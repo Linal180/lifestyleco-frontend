@@ -27,12 +27,12 @@ const RouteComponent = () => {
           {token ? <>
             {
               role === 'admin'
-              ? <Route index path='/' element={<AdminDashboard />} />
-              : <>
-                <Route path='/afternoon' element={<AfternoonComponent />} />
-                <Route path='/evening' element={<EveningComponent />} />
-                <Route index path='/' element={<MorningComponent />} />
-              </>
+                ? <Route index path='/' element={<AdminDashboard />} />
+                : <>
+                  <Route path='/afternoon' element={<AfternoonComponent />} />
+                  <Route path='/evening' element={<EveningComponent />} />
+                  <Route index path='/' element={<MorningComponent />} />
+                </>
             }
           </> : <>
             <Route index path='/register' element={<RegisterComponent />} />
@@ -43,7 +43,7 @@ const RouteComponent = () => {
         </Routes>
       </Box>
 
-      {(token || role === 'user')  &&  <Footer />}
+      {(token || role === 'user') && <Footer />}
     </Router>
   )
 }
