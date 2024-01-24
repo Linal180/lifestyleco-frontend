@@ -31,3 +31,12 @@ export const getVideoURL = (key: string): string => {
 
   return "";
 }
+
+export const getCreatedDatDiff = (createdAt: string) =>{
+  const creationDate = new Date(createdAt);
+  const currentDate = new Date();
+
+  const differenceInMilliseconds = (currentDate as any) - (creationDate as any);
+
+  return Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) + 1;
+}
