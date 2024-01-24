@@ -10,13 +10,13 @@ import { AuthContext } from "../../context/auth"
 
 const ExerciseComponent: FC<ExerciseProps> = ({ exercise }) => {
   const { id, title, description, require, perform, video } = exercise;
-  const { completedExercises, getUserExercises } = useContext(AuthContext);
+  const { completedExercises, getUserExercises, currentDay } = useContext(AuthContext);
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleComplete = async (id: string) => {
     try {
       const { statusCode } = await apiPost<ApiStatus>('/exercise/status/update', {
-        status: 1, exercise_id: id
+        status: 1, exercise_id: id, day: currentDay
       });
 
       if (statusCode === 200 || statusCode === 201) {

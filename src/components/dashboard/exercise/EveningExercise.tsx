@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AxiosResponse } from 'axios';
 import { Box, Card } from '@mui/material';
@@ -9,14 +9,16 @@ import ExerciseComponent from '../../common/Exercise';
 
 import { apiGet } from '../../../axois';
 import { Exercise } from '../../../interfaces';
+import { AuthContext } from '../../../context/auth';
 
 const EveningExercise = () => {
+  const { currentDay } = useContext(AuthContext)
   const [loading, setLoading] = useState<boolean>(true);
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   const getEveningExercises = useCallback(async () => {
     try {
-      const { data } = await apiGet<AxiosResponse>('/exercise/evening');
+      const { data } = await apiGet<AxiosResponse>('/exercise/evening', { day: currentDay });
 
       if (data) {
         setExercises(data);
@@ -27,7 +29,7 @@ const EveningExercise = () => {
       setLoading(false)
       toast.error("Failed to load exercises");
     }
-  }, [])
+  }, [currentDay])
 
   useEffect(() => {
     getEveningExercises()

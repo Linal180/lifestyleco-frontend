@@ -1,6 +1,6 @@
 import { createContext, FC, ReactNode, useEffect, useState } from "react";
 import { useCallback } from "react";
-import { getToken } from "../../utils";
+import { getCreatedDatDiff, getToken } from "../../utils";
 import { apiGet, apiPost } from "../../axois";
 import { AxiosResponse } from "axios";
 import { UserStatus } from "../../interfaces";
@@ -8,8 +8,10 @@ import { UserStatus } from "../../interfaces";
 type AuthContextProps = {
   user: any;
   role: 'admin' | 'user' | '';
+  currentDay: string;
   completedExercises: string[];
   setUser: (user: any) => void;
+  setCurrentDay: (day: string) => void;
   setRole: (role: 'admin' | 'user' | '') => void;
   getUserExercises: () => void;
 }
@@ -27,6 +29,8 @@ type User = {
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
   role: '',
+  currentDay: '',
+  setCurrentDay: (day: string) => { },
   completedExercises: [],
   setUser: (user: any) => { },
   setRole: (role: 'admin' | 'user' | '') => { },
@@ -38,6 +42,7 @@ type ReactNodeProps = {
 }
 
 export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Element => {
+  const [currentDay, setCurrentDay] = useState<string>('');
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<'admin' | 'user' | ''>('');
   const [completedExercises, setCompletedExercises] = useState<string[]>([])
@@ -65,9 +70,10 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
 
       if (data) {
         const { user } = data || {}
-        const { user_type } = user || {}
-
+        const { user_type, created_at }: User = user || {}
+        
         setUser(user);
+        setCurrentDay((getCreatedDatDiff(created_at) || 0).toString())
 
         if (user_type === "1") {
           setRole('admin');
@@ -89,7 +95,9 @@ export const AuthContextProvider: FC<ReactNodeProps> = ({ children }): JSX.Eleme
       role,
       completedExercises,
       setRole,
+      currentDay,
       setUser,
+      setCurrentDay,
       getUserExercises,
     }}>
       {children}
